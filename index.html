@@ -113,4 +113,33 @@
     });
   </script>
 </body>
-</html>
+</html> <h2>ثبت‌نام</h2>
+<form id="signup-form">
+  <input type="email" id="email" placeholder="ایمیل" required><br><br>
+  <input type="password" id="password" placeholder="رمز عبور" required><br><br>
+  <button type="submit">ثبت‌نام</button>
+</form> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const supabaseUrl = 'https://tqrxizzfxxbtbntohmcz.supabase.co';
+  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxcnhpenpmeHhidGJudG9obWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2MTgzNDIsImV4cCI6MjA2OTE5NDM0Mn0.CDyWAkSYR8wB_ZyimtN_glB4bZkt9aWY6PxO_1CC4S8';
+  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+  const signupForm = document.getElementById('signup-form');
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    const { data, error } = await supabase
+      .from('users')
+      .insert([{ email, password }]);
+
+    if (error) {
+      alert('❌ خطا در ثبت‌نام: ' + error.message);
+    } else {
+      alert('✅ ثبت‌نام با موفقیت انجام شد!');
+    }
+  });
+</script>
+
