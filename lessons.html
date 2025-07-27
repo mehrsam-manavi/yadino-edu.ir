@@ -62,3 +62,32 @@
 </script>
 <h2>آموزش‌های ثبت‌شده</h2>
 <div id="lessons-list"></div>
+// دریافت آموزش‌ها و نمایش در صفحه
+async function loadLessons() {
+  const { data, error } = await supabase
+    .from('lessons')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  const list = document.getElementById('lessons-list');
+  list.innerHTML = ''; // پاک‌سازی لیست قبلی
+
+  if (error) {
+    list.innerHTML = '❌ خطا در بارگذاری آموزش‌ها';
+    console.error(error);
+    return;
+  }
+
+  data.forEach(lesson => {
+    const item = document.createElement('div');
+    item.innerHTML = `
+      <h3>${lesson.title}</h3>
+      <p>${lesson.content}</p>
+      <hr>
+    `;
+    list.appendChild(item);
+  });
+}
+
+// بارگذاری اولیه آموزش‌ها
+loadLessons();
