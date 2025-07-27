@@ -27,3 +27,36 @@
     </div>
 </body>
 </html>
+<h2>افزودن آموزش جدید</h2>
+<form id="lesson-form">
+  <input type="text" id="title" placeholder="عنوان آموزش" required><br><br>
+  <textarea id="content" placeholder="محتوای آموزش" required></textarea><br><br>
+  <button type="submit">افزودن</button>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+  const SUPABASE_URL = 'https://tqrxizzfxxbtbntohmcz.supabase.co';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // کلید کاملتو اینجا بذار
+
+  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  const lessonForm = document.getElementById('lesson-form');
+  lessonForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById('title').value;
+    const content = document.getElementById('content').value;
+
+    const { data, error } = await supabase
+      .from('lessons')
+      .insert([{ title, content }]);
+
+    if (error) {
+      alert('❌ خطا در افزودن آموزش');
+      console.error(error);
+    } else {
+      alert('✅ آموزش با موفقیت اضافه شد');
+      lessonForm.reset();
+    }
+  });
+</script>
