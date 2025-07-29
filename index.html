@@ -2,378 +2,32 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>سایت یادینو</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      transition: 0.3s;
-    }
-
-    :root {
-      --bg: #ffffff;
-      --text: #000000;
-    }
-
-    .dark {
-      --bg: #121212;
-      --text: #ffffff;
-    }
-
-    header {
-      background: #333;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-    }
-
-    nav {
-      background: #444;
-      padding: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 500px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: #f0f0f0;
-      border-radius: 8px;
-    }
-
-    label {
-      display: block;
-      margin-top: 1rem;
-    }
-
-    input {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-    }
-
-    button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-    }
-  </style>
-</head>
-<body>
-  <button class="theme-toggle" onclick="toggleTheme()">🌓 تغییر تم</button>
-
-  <header>
-    <h1>به سایت یادینو خوش آمدی</h1>
-  </header>
-
-  <nav>
-    <a href="index.html">خانه</a>
-    <a href="lessons.html">آموزش‌ها</a>
-    <a href="admin.html">پنل مدیریت</a>
-    <a href="contact.html">تماس با ما</a>
-  </nav>
-
-  <div class="container">
-    <h2>ورود / ثبت‌نام</h2>
-    <form id="authForm">
-      <label for="email">ایمیل:</label>
-      <input type="email" id="email" required />
-
-      <label for="password">رمز عبور:</label>
-      <input type="password" id="password" required />
-
-      <button type="submit">ارسال</button>
-    </form>
-  </div>
-
-  <script>
-    function toggleTheme() {
-      document.body.classList.toggle("dark");
-    }
-
-    document.getElementById("authForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      alert("ورود یا ثبت‌نام موفق!");
-    });
-  </script>
-</body>
-</html> <h2>ثبت‌نام</h2>
-<form id="signup-form">
-  <input type="email" id="email" placeholder="ایمیل" required><br><br>
-  <input type="password" id="password" placeholder="رمز عبور" required><br><br>
-  <button type="submit">ثبت‌نام</button>
-</form> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-  const supabaseUrl = 'https://tqrxizzfxxbtbntohmcz.supabase.co';
-  const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxcnhpenpmeHhidGJudG9obWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2MTgzNDIsImV4cCI6MjA2OTE5NDM0Mn0.CDyWAkSYR8wB_ZyimtN_glB4bZkt9aWY6PxO_1CC4S8';
-  const supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-  const signupForm = document.getElementById('signup-form');
-  signupForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    const { data, error } = await supabase
-      .from('users')
-      .insert([{ email, password }]);
-
-    if (error) {
-      alert('❌ خطا در ثبت‌نام: ' + error.message);
-    } else {
-      alert('✅ ثبت‌نام با موفقیت انجام شد!');
-    }
-  });
-</script>
-<h2>ورود</h2>
-<form id="login-form">
-  <input type="email" id="login-email" placeholder="ایمیل" required><br><br>
-  <input type="password" id="login-password" placeholder="رمز عبور" required><br><br>
-  <button type="submit">ورود</button>
-</form>
-<script>
-  const loginForm = document.getElementById('login-form');
-  loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('email', email)
-      .eq('password', password)
-      .single();
-
-    if (error || !data) {
-      alert('❌ ورود ناموفق! اطلاعات نادرست است.');
-    } else {
-      alert('✅ ورود موفقیت‌آمیز بود!');
-      // این‌جا می‌تونی بعداً کاربر رو به پنل admin.html هدایت کنی
-      // window.location.href = 'admin.html';
-    }
-  });
-</script>
-<!-- فرم ثبت‌نام -->
-<form id="signup-form">
-  <h3>ثبت‌نام</h3>
-  <input type="email" id="signup-email" placeholder="ایمیل" required>
-  <input type="password" id="signup-password" placeholder="رمز عبور" required>
-  <button type="submit">ثبت‌نام</button>
-</form>
-
-<!-- فرم ورود -->
-<form id="login-form">
-  <h3>ورود</h3>
-  <input type="email" id="login-email" placeholder="ایمیل" required>
-  <input type="password" id="login-password" placeholder="رمز عبور" required>
-  <button type="submit">ورود</button>
-</form>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-<script>
-  const SUPABASE_URL = 'https://tqrxizzfxxbtbntohmcz.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'; // کلیدت که دادی
-  const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-
-  // ثبت‌نام
-  document.getElementById('signup-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('signup-email').value;
-    const password = document.getElementById('signup-password').value;
-
-    const { data, error } = await supabase
-      .from('users')
-      .insert([{ email, password }]);
-
-    if (error) {
-      alert('خطا در ثبت‌نام: ' + error.message);
-    } else {
-      alert('ثبت‌نام موفقیت‌آمیز بود!');
-      window.location.href = 'lessons.html';
-    }
-  });
-
-  // ورود
-  document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = document.getElementById('login-email').value;
-    const password = document.getElementById('login-password').value;
-
-    const { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('email', email)
-      .eq('password', password)
-      .single();
-
-    if (error || !data) {
-      alert('ایمیل یا رمز اشتباه است!');
-    } else {
-      alert('ورود موفقیت‌آمیز بود!');
-      window.location.href = (email === 'mehrsammanavi1221@gmail.com') ? 'admin.html' : 'lessons.html';
-    }
-  });
-</script>
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-  <meta charset="UTF-8">
-  <title>ورود به یادینو</title>
-  <style>
-    body {
-      background-color: #121212;
-      color: white;
-      font-family: sans-serif;
-      text-align: center;
-      margin-top: 100px;
-    }
-    form {
-      margin: 20px auto;
-      width: 300px;
-      padding: 20px;
-      background-color: #1f1f1f;
-      border-radius: 12px;
-    }
-    input, button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      font-size: 16px;
-    }
-    button {
-      background-color: teal;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #008080;
-    }
-  </style>
-</head> 
-<body>
-  <h2>ورود / ثبت‌نام به یادینو</h2>
-
-  <form id="signup-form">
-    <input type="email" placeholder="ایمیل" required>
-    <input type="password" placeholder="رمز عبور" required>
-    <button type="submit">ثبت‌نام</button>
-  </form>
-
-  <form id="login-form">
-    <input type="email" placeholder="ایمیل" required>
-    <input type="password" placeholder="رمز عبور" required>
-    <button type="submit">ورود</button>
-  </form>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-  <meta charset="UTF-8">
-  <title>ورود به یادینو</title>
-  <style>
-    body {
-      background-color: #121212;
-      color: white;
-      font-family: sans-serif;
-      text-align: center;
-      margin-top: 100px;
-    }
-    form {
-      margin: 20px auto;
-      width: 300px;
-      padding: 20px;
-      background-color: #1f1f1f;
-      border-radius: 12px;
-    }
-    input, button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 10px;
-      border-radius: 6px;
-      border: none;
-      font-size: 16px;
-    }
-    button {
-      background-color: teal;
-      color: white;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #008080;
-    }
-  </style>
-</head>
-<body>
-
-  <h2>ورود / ثبت‌نام به یادینو</h2>
-
-  <form id="signup-form">
-    <input type="email" placeholder="ایمیل" required>
-    <input type="password" placeholder="رمز عبور" required>
-    <button type="submit">ثبت‌نام</button>
-  </form>
-
-  <form id="login-form">
-    <input type="email" placeholder="ایمیل" required>
-    <input type="password" placeholder="رمز عبور" required>
-    <button type="submit">ورود</button>
-  </form>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>سایت یادینو</title>
+  <title>یادینو</title>
 </head>
 <body style="font-family: sans-serif; background-color: white; color: black; max-width: 600px; margin: 0 auto; padding: 20px;">
 
-  <h1>👋 به سایت یادینو خوش آمدی</h1>
+  <h1>به سایت یادینو خوش آمدی 👋</h1>
 
-  <h2>ورود یا ثبت‌نام</h2>
-  <form id="auth-form">
+  <form id="signup-form">
     <input type="email" id="email" placeholder="ایمیل" required style="width:100%; margin-bottom:10px;"><br>
     <input type="password" id="password" placeholder="رمز عبور" required style="width:100%; margin-bottom:10px;"><br>
-    <button type="submit">ورود / ثبت‌نام</button>
+    <button type="submit">ثبت‌نام</button>
   </form>
 
-  <p id="auth-status" style="margin-top: 10px;"></p>
+  <p id="status" style="margin-top: 10px;"></p>
 
   <hr>
 
-  <button onclick="toggleTheme()">تغییر تم روشن/تیره</button>
+  <button onclick="toggleTheme()">تغییر تم</button>
 
   <script>
-    let darkMode = false;
+    let dark = false;
 
     function toggleTheme() {
-      darkMode = !darkMode;
-      if (darkMode) {
-        document.body.style.backgroundColor = "#111";
+      dark = !dark;
+      if (dark) {
+        document.body.style.backgroundColor = "#222";
         document.body.style.color = "#fff";
       } else {
         document.body.style.backgroundColor = "#fff";
@@ -381,9 +35,9 @@
       }
     }
 
-    document.getElementById("auth-form").addEventListener("submit", function (e) {
+    document.getElementById("signup-form").addEventListener("submit", function (e) {
       e.preventDefault();
-      document.getElementById("auth-status").innerText = "✅ ورود یا ثبت‌نام با موفقیت انجام شد (شبیه‌سازی)";
+      document.getElementById("status").innerText = "✅ ثبت‌نام با موفقیت انجام شد (شبیه‌سازی)";
     });
   </script>
 
