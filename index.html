@@ -343,3 +343,49 @@
 
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>سایت یادینو</title>
+</head>
+<body style="font-family: sans-serif; background-color: white; color: black; max-width: 600px; margin: 0 auto; padding: 20px;">
+
+  <h1>👋 به سایت یادینو خوش آمدی</h1>
+
+  <h2>ورود یا ثبت‌نام</h2>
+  <form id="auth-form">
+    <input type="email" id="email" placeholder="ایمیل" required style="width:100%; margin-bottom:10px;"><br>
+    <input type="password" id="password" placeholder="رمز عبور" required style="width:100%; margin-bottom:10px;"><br>
+    <button type="submit">ورود / ثبت‌نام</button>
+  </form>
+
+  <p id="auth-status" style="margin-top: 10px;"></p>
+
+  <hr>
+
+  <button onclick="toggleTheme()">تغییر تم روشن/تیره</button>
+
+  <script>
+    let darkMode = false;
+
+    function toggleTheme() {
+      darkMode = !darkMode;
+      if (darkMode) {
+        document.body.style.backgroundColor = "#111";
+        document.body.style.color = "#fff";
+      } else {
+        document.body.style.backgroundColor = "#fff";
+        document.body.style.color = "#000";
+      }
+    }
+
+    document.getElementById("auth-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.getElementById("auth-status").innerText = "✅ ورود یا ثبت‌نام با موفقیت انجام شد (شبیه‌سازی)";
+    });
+  </script>
+
+</body>
+</html>
