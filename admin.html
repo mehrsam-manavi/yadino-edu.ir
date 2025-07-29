@@ -261,3 +261,154 @@
 
   loadLessons();
 </script>
+<h2>مدیریت آموزش‌ها</h2>
+<div id="lessons-list"></div>
+
+<!-- فرم افزودن آموزش -->
+<h3>افزودن آموزش جدید</h3>
+<form id="lesson-form">
+  <input type="text" id="lesson-title" placeholder="عنوان آموزش" required>
+  <textarea id="lesson-content" placeholder="محتوای آموزش" required></textarea>
+  <button type="submit">افزودن</button>
+</form>
+<script type="module">
+  import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+  const supabase = createClient(
+    "https://tqrxizzfxxbtbntohmcz.supabase.co",
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxcnhpenpmeHhidGJudG9obWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2MTgzNDIsImV4cCI6MjA2OTE5NDM0Mn0.CDyWAkSYR8wB_ZyimtN_glB4bZkt9aWY6PxO_1CC4S8"
+  );
+
+  // دریافت و نمایش آموزش‌ها
+  async function loadLessons() {
+    const { data, error } = await supabase.from("lessons").select("*").order("created_at", { ascending: false });
+    const lessonsList = document.getElementById("lessons-list");
+    lessonsList.innerHTML = "";
+
+    if (error) {
+      console.error(error);
+      lessonsList.innerHTML = "خطا در بارگذاری آموزش‌ها";
+      return;
+    }
+
+    data.forEach((lesson) => {
+      const lessonItem = document.createElement("div");
+      lessonItem.innerHTML = `
+        <h4>${lesson.title}</h4>
+        <p>${lesson.content}</p>
+        <button onclick="deleteLesson('${lesson.id}')">حذف</button>
+        <hr>
+      `;
+      lessonsList.appendChild(lessonItem);
+    });
+  }
+
+  // افزودن آموزش جدید
+  document.getElementById("lesson-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const title = document.getElementById("lesson-title").value;
+    const content = document.getElementById("lesson-content").value;
+
+    const { error } = await supabase.from("lessons").insert([{ title, content }]);
+
+    if (error) {
+      alert("خطا در افزودن آموزش");
+      console.error(error);
+    } else {
+      alert("آموزش با موفقیت اضافه شد!");
+      loadLessons();
+    }
+  });
+
+  // حذف آموزش
+  async function deleteLesson(id) {
+    const { error } = await supabase.from("lessons").delete().eq("id", id);
+    if (error) {
+      alert("خطا در حذف آموزش");
+      console.error(error);
+    } else {
+      alert("آموزش حذف شد!");
+      loadLessons();
+    }
+  }
+
+  // بارگذاری آموزش‌ها به صورت پیش‌فرض
+  loadLessons();
+</script>
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>پنل مدیریت - YADINO</title>
+</head>
+<body style="font-family: sans-serif; max-width: 700px; margin: 0 auto; padding: 20px; background: #f9f9f9; color: #222;">
+
+  <h1>🎓 پنل مدیریت YADINO</h1>
+
+  <h2>افزودن آموزش جدید</h2>
+  <form id="lesson-form">
+    <input type="text" id="lesson-title" placeholder="عنوان آموزش" required style="width:100%; margin-bottom: 10px;" />
+    <textarea id="lesson-content" placeholder="محتوای آموزش" required style="width:100%; height:100px; margin-bottom:10px;"></textarea>
+    <button type="submit">افزودن آموزش</button>
+  </form>
+
+  <hr />
+
+  <h2>آموزش‌های ثبت‌شده</h2>
+  <div id="lessons-list"></div>
+
+  <script type="module">
+    import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+
+    const supabase = createClient(
+      "https://tqrxizzfxxbtbntohmcz.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRxcnhpenpmeHhidGJudG9obWN6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM2MTgzNDIsImV4cCI6MjA2OTE5NDM0Mn0.CDyWAkSYR8wB_ZyimtN_glB4bZkt9aWY6PxO_1CC4S8"
+    );
+
+    async function loadLessons() {
+      const { data, error } = await supabase.from("lessons").select("*").order("created_at", { ascending: false });
+      const lessonsList = document.getElementById("lessons-list");
+      lessonsList.innerHTML = "";
+
+      if (error) {
+        lessonsList.innerHTML = "❌ خطا در بارگذاری آموزش‌ها";
+        return;
+      }
+
+      data.forEach((lesson) => {
+        const div = document.createElement("div");
+        div.style = "border:1px solid #ccc; padding:10px; margin-bottom:10px; background:white;";
+        div.innerHTML = `
+          <h3>${lesson.title}</h3>
+          <p>${lesson.content}</p>
+          <button onclick="deleteLesson('${lesson.id}')">حذف</button>
+        `;
+        lessonsList.appendChild(div);
+      });
+    }
+
+    async function deleteLesson(id) {
+      const { error } = await supabase.from("lessons").delete().eq("id", id);
+      if (!error) {
+        loadLessons();
+      }
+    }
+
+    document.getElementById("lesson-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("lesson-title").value;
+      const content = document.getElementById("lesson-content").value;
+      const { error } = await supabase.from("lessons").insert([{ title, content }]);
+      if (!error) {
+        document.getElementById("lesson-form").reset();
+        loadLessons();
+      }
+    });
+
+    loadLessons();
+  </script>
+
+</body>
+</html>
