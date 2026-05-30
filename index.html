@@ -1,142 +1,113 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<head> <link rel="icon" href="yadino-logo.png" type="image/png">
-
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>یادینو</title>
-</head>
-<body style="font-family: sans-serif; background-color: white; color: black; max-width: 600px; margin: 0 auto; padding: 20px;">
-
-  <h1>به سایت یادینو خوش آمدی 👋</h1>
-
-  <form id="signup-form">
-    <input type="email" id="email" placeholder="ایمیل" required style="width:100%; margin-bottom:10px;"><br>
-    <input type="password" id="password" placeholder="رمز عبور" required style="width:100%; margin-bottom:10px;"><br>
-    <button type="submit">ثبت‌نام</button>
-  </form>
-
-  <p id="status" style="margin-top: 10px;"></p>
-
-  <hr>
-
-  <button onclick="toggleTheme()">تغییر تم</button>
-
-  <script>
-    let dark = false;
-
-    function toggleTheme() {
-      dark = !dark;
-      if (dark) {
-        document.body.style.backgroundColor = "#222";
-        document.body.style.color = "#fff";
-      } else {
-        document.body.style.backgroundColor = "#fff";
-        document.body.style.color = "#000";
-      }
-    }
-
-    document.getElementById("signup-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      document.getElementById("status").innerText = "✅ ثبت‌نام با موفقیت انجام شد (شبیه‌سازی)";
-    });
-  </script>
-
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>یادینو - صفحه اصلی</title>
-  <link rel="icon" href="favicon.png" type="image/png" />
-  <style>
-    body {
-      margin: 0;
-      font-family: sans-serif;
-      background-color: #fff;
-      color: #000;
-      text-align: center;
-      padding: 50px;
-    }
-    h1 {
-      font-size: 2em;
-    }
-    a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #0077cc;
-      font-weight: bold;
-    }
-    a:hover {
-      color: #005299;
-    }
-  </style>
-</head> <header style="display: flex; align-items: center; gap: 10px; padding: 10px;">
-  <img src="yadino-logo.png" alt="Yadino Logo" style="height: 40px;">
-  <h1 style="margin: 0;">به سایت یادینو خوش آمدی</h1>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>یادینو</title>
+<link rel="icon" href="yadino-logo.png" type="image/png">
+
+<style>
+body{
+    margin:0;
+    font-family:tahoma,sans-serif;
+    background:#111;
+    color:white;
+}
+
+header{
+    background:#000;
+    padding:20px;
+    text-align:center;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    padding:30px;
+    text-align:center;
+}
+
+.card{
+    background:#1c1c1c;
+    padding:20px;
+    border-radius:15px;
+    margin-top:20px;
+}
+
+input{
+    width:90%;
+    padding:12px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.btn{
+    background:#00aaff;
+    color:white;
+}
+
+.menu a{
+    display:inline-block;
+    margin:10px;
+    padding:12px 20px;
+    background:#00aaff;
+    color:white;
+    text-decoration:none;
+    border-radius:8px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎓 یادینو</h1>
+    <p>به سایت آموزشی یادینو خوش آمدید</p>
 </header>
 
-<body>
-  <h1>به سایت یادینو خوش آمدید</h1>
-  <p>از منوی زیر برای دسترسی به بخش‌ها استفاده کنید:</p>
-  <div>
-    <a href="admin.html">پنل مدیریت</a>
-    <a href="lessons.html">آموزش‌ها</a>
-  </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>یادینو - آموزش آنلاین</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="yadino-logo.png" type="image/png" />
-  <style>
-    body {
-      font-family: sans-serif;
-      background-color: #fff;
-      color: #000;
-      margin: 0;
-      padding: 0;
-    }
+<div class="container">
 
-    header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      background-color: #f5f5f5;
-      padding: 20px;
-      border-bottom: 1px solid #ccc;
-    }
+    <div class="card">
+        <h2>ثبت نام</h2>
 
-    header img {
-      height: 50px;
-    }
+        <form id="signup-form">
+            <input type="email" placeholder="ایمیل" required>
+            <input type="password" placeholder="رمز عبور" required>
+            <br>
+            <button class="btn" type="submit">ثبت نام</button>
+        </form>
 
-    header h1 {
-      margin: 0;
-      font-size: 1.8em;
-    }
+        <p id="status"></p>
+    </div>
 
-    main {
-      padding: 40px 20px;
-      text-align: center;
-    }
-  </style>
-</head> <link rel="icon" type="image/png" href="favicon.png">
+    <div class="card">
+        <h2>بخش‌های سایت</h2>
 
-<body>
-  <header>
-    <img src="yadino-logo.png" alt="YADINO Logo" />
-    <h1>به سایت یادینو خوش آمدی</h1>
-  </header>
+        <div class="menu">
+            <a href="lessons.html">آموزش‌ها</a>
+            <a href="admin.html">پنل مدیریت</a>
+        </div>
+    </div>
 
-  <main>
-    <p>برای ورود یا ثبت‌نام، از منوی بالا استفاده کنید.</p>
-  </main>
+</div>
+
+<script>
+document.getElementById("signup-form")
+.addEventListener("submit",function(e){
+e.preventDefault();
+document.getElementById("status").innerText =
+"✅ ثبت نام با موفقیت انجام شد";
+});
+</script>
+
 </body>
 </html>
